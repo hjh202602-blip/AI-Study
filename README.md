@@ -5,7 +5,7 @@
 ## 목차
 ### 00. python
 
- - [00-01. 파이썬](./neural-networks/0-01-python.md)
+ - [00-01. 파이썬](./neural-networks/00-01-python.md)
 
 ### 01. 
 
