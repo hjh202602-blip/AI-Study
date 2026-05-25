@@ -4,9 +4,9 @@
 ---
 ## 목차
 ### 00. python
- - [0-01. 파이썬](./neural-networks/0-01-python.md)
- - [0-02. 넘파이](./neural-networks/0-02-numpy.md)
- - [0-03. 맷플롯립](./neural-/0-03-matplotlib.md)
+ - [00-01. 파이썬](./neural-networks/0-01-python.md)
+ - [00-02. 넘파이](./neural-networks/0-02-numpy.md)
+ - [00-03. 맷플롯립](./neural-/0-03-matplotlib.md)
 
 ---
 > 개인 공부 기록용 노트입니다..
