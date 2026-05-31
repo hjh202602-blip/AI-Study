@@ -60,7 +60,7 @@ NOT이 붙여진 게이트들은 원래 출력값을 반대로 하여 출력된�
 
 ## 6. 정리
 
-![gate.png](img/gate.png)
+![gate.png](img/01-gate.png)
 
 게이트 그림들은 그 게이트의 논리 기호이다.
 
