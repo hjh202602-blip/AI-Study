@@ -55,7 +55,7 @@ $$
 | OR | 입력이 하나라도 1이면 1을 출력한다. |
 | XOR | 입력값이 서로 다를 때 1을 출력한다. |
 
-[gate 더 보기](neural-networks/01-perceptron-gate.md)
+[gate 더 보기](01-perceptron-gate.md)
 
 ### 게이트를 퍼셉트론으로 표현하기
 
