@@ -53,3 +53,5 @@ plt.show()
 ```
 
 ![sin 그래프](img/00-sin.png)
+
+[돌아가기](../README.md)
