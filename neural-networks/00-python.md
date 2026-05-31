@@ -52,4 +52,4 @@ plt.plot(x, y)
 plt.show()
 ```
 
-![sin 그래프](img/00-01-sin.png)
+![sin 그래프](img/00-sin.png)
