@@ -246,11 +246,11 @@ NAND, OR게이트 모두 AND게이트에서 b와 w만 변경되었다.
 
 #### AND게이트
 
-![AND게이트 시각화](img/ORGateGrape.jpg)
+![AND게이트 시각화](img/01-ORGateGrape.jpg)
 
 #### OR게이트
 
-![OR게이트 시각화](img/ANDGateGrape.jpg)
+![OR게이트 시각화](img/01-ANDGateGrape.jpg)
 
 
 방금 살펴본 OR게이트와 AND게이트를 시각화한 것이다.
@@ -323,3 +323,19 @@ $x_1$, $x_2$가 무엇이든 상관없이 오직 b에 의해 값이 변해서 `�
 입력값과 가중치를 바탕으로 오차를 계산 할 수 없어서 `학습이 불가능하다.`
 
 </details>
+
+<br>
+
+#### XOR게이트
+
+![XOR게이트](/neural-networks/img/01-XORGateGrape.jpg)
+
+하지만 XOR게이트는 오직 직선 하나만으로는 표현할 수 없다.
+
+---
+
+[돌아가기(README)](../README.md)
+
+[이전(python)](00-00python.md)
+
+[다음(MLP&ANN)](02-00MLP&ANN.md)

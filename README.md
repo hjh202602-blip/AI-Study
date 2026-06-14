@@ -14,8 +14,12 @@
 
  - [01. 퍼셉트론](./neural-networks/01-00perceptron.md)
 
- - [01. 퍼셉트론 - 게이트](./neural-networks/01-01perceptron-gate.md)
+ - [퍼셉트론 - 게이트](./neural-networks/01-01perceptron-gate.md)
+
+### 02. MLP & ANN
+
+ - [02. MLP & ANN](./neural-networks/02-00MLP&ANN.md)
 
 ---
 
-> 개인 공부 기록용 노트입니다..
+> 개인 공부 기록용 노트입니다.

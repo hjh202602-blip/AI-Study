@@ -67,3 +67,7 @@ NOT이 붙여진 게이트들은 원래 출력값을 반대로 하여 출력된�
 ---
 
 [돌아가기(퍼셉트론)](01-00perceptron.md)
+
+[돌아가기(README)](../README.md)
+
+[돌아가기(README)](../README.md)

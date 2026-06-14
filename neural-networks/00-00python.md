@@ -54,4 +54,8 @@ plt.show()
 
 ![sin 그래프](img/00-sin.png)
 
-[돌아가기](../README.md)
+---
+
+[돌아가기(README)](../README.md)
+
+[다음(perceptron)](01-00perceptron.md)
