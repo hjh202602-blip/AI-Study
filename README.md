@@ -8,13 +8,21 @@
 
 ### 00. python
 
- - [00. 파이썬](./neural-networks/00-00python.md)
+ - [01. 파이썬](./neural-networks/00-01python.md)
 
 ### 01. perceptron
 
- - [01. 퍼셉트론](./neural-networks/01-00perceptron.md)
+ - [01. perceptron](./neural-networks/01-01perceptron.md)
 
- - [퍼셉트론 - 게이트](./neural-networks/01-01perceptron-gate.md)
+ - [02. gate](./neural-networks/01-02gate.md)
+
+ > [02+. gate+](./neural-networks/01-02gate+.md)
+
+ - [03. python구현](./neural-networks/01-03python구현.md)
+
+ - [04. 한계](./neural-networks/01-04한계.md)
+
+ - [05. MLP](./neural-networks/01-05MLP.md)
 
 #### 실습 예제
 
@@ -24,9 +32,9 @@
 
 * [퍼셉트론](./neural-networks/practice/01단층%20퍼셉트론.py)
 
-### 02. MLP & ANN
+### 02. ANN
 
- - [02. MLP & ANN](./neural-networks/02-00MLP&ANN.md)
+ - [01. ANN](./neural-networks/02-00ANN.md)
 
 #### 실습 예제
 
