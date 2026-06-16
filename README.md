@@ -32,15 +32,14 @@
 
 * [퍼셉트론](./neural-networks/practice/01단층%20퍼셉트론.py)
 
+* [다층 퍼셉트론 예제](./neural-networks/practice/01다층%20퍼셉트론%20예제.py)
+
+> [다층 퍼셉트론 예제 pdf](./neural-networks/resources/01다층%20퍼셉트론%20구현.pdf)
+
 ### 02. ANN
 
  - [01. ANN](./neural-networks/02-00ANN.md)
 
-#### 실습 예제
-
-* [다층 퍼셉트론 예제](./neural-networks/practice/02다층%20퍼셉트론%20예제.py)
-
-> [다층 퍼셉트론 예제 pdf](./neural-networks/resources/다층%20퍼셉트론%20구현.pdf)
 
 ---
 
