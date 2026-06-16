@@ -58,4 +58,4 @@ plt.show()
 
 [돌아가기(README)](../README.md)
 
-[다음(perceptron)](01-00perceptron.md)
+[다음(perceptron)](01-01perceptron.md)
