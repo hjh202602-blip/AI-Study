@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>보물지도</title>
+  <meta name="description" content="퍼셉트론부터 신경망까지, 공부 노트를 지도 한 장으로 따라가며 직접 만져 보는 AI 원리">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="top-rack" id="rack" aria-label="보물지도 목록" hidden></nav>
+  <header class="topbar">
+    <div class="brand">
+      <h1 id="site-title"></h1>
+      <span class="brand-meta" id="site-meta">불러오는 중…</span>
+    </div>
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="개념 찾기 (예: 편향, XOR, numpy)" autocomplete="off">
+      <ul id="search-results" class="search-results" hidden></ul>
+    </label>
+    <div class="progress">
+      <span title="찾은 단서">🔑 단서<b id="treasure-count">0</b><span id="treasure-total">/ 0</span></span>
+      <span title="보물 문제">✕ 보물<b id="quiz-state">–</b></span>
+      <span title="둘러본 지점">둘러본 곳<b id="progress-count">0</b><span id="progress-total">/ 0</span></span>
+    </div>
+  </header>
+  <nav class="chips" id="region-chips" aria-label="챕터"></nav>
+
+  <main class="map-wrap" id="map-wrap">
+    <svg id="map" class="map lod-world" role="img" aria-label="보물지도"></svg>
+    <div class="roll" id="roll" hidden></div>
+    <div class="zoom-level" id="zoom-level"></div>
+    <div class="legend" id="legend"></div>
+    <button class="compass-btn" id="compass" hidden aria-label="다음 섬 방문하기">
+      <svg viewBox="-50 -50 100 100" aria-hidden="true">
+        <circle r="46" fill="#f4e8cc" stroke="#3a2816" stroke-width="2"/>
+        <circle r="38" fill="none" stroke="#3a2816" stroke-width="1" stroke-dasharray="2 3"/>
+        <g fill="#3a2816" font-family="Gowun Batang, serif" font-size="11" font-weight="700" text-anchor="middle">
+          <text y="-28">N</text><text x="30" y="4">E</text><text y="36">S</text><text x="-30" y="4">W</text>
+        </g>
+        <path d="M0,-24 L4,0 L0,24 L-4,0 Z M-24,0 L0,-4 L24,0 L0,4 Z" fill="#3a2816" opacity=".25"/>
+        <g class="needle"><path d="M0,-34 L7,0 L-7,0 Z" fill="#a8352a" stroke="#3a2816" stroke-width="1"/><path d="M0,34 L7,0 L-7,0 Z" fill="#f4e8cc" stroke="#3a2816" stroke-width="1"/></g>
+        <circle r="4" fill="#3a2816"/>
+      </svg>
+      <span>다음 섬 방문하기</span><small></small>
+    </button>
+    <div class="map-controls">
+      <button id="zoom-in" aria-label="확대">+</button>
+      <button id="zoom-out" aria-label="축소">−</button>
+      <button id="zoom-fit" aria-label="전체 보기">
+        <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      </button>
+    </div>
+    <div class="loading" id="loading">지도를 그리는 중…</div>
+  </main>
+
+  <aside class="panel" id="panel" aria-hidden="true">
+    <div class="panel-grip" id="panel-grip"></div>
+    <div class="panel-head">
+      <span class="region-tag" id="panel-region"></span>
+      <button class="icon-btn" id="panel-close" aria-label="닫기">×</button>
+    </div>
+    <div class="panel-body" id="panel-body"></div>
+    <div class="panel-nav" id="panel-nav"></div>
+  </aside>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/widgets.js"></script>
+  <script src="js/runner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
