@@ -605,3 +605,11 @@ body.panel-open .compass-btn { right: calc(var(--panel-w) + 20px); }
 .runner-inputs textarea:focus { border-color: var(--gold-2); }
 .runner-bar button.stop { background: #b03a2e; border-color: #b03a2e; color: #fff; font-weight: 700; }
 .runner-bar button:disabled { opacity: .5; cursor: default; }
+
+/* ---------- 참고자료 ---------- */
+.refs { margin: 22px 0 6px; }
+.ref-card { display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; margin: 8px 0; border-radius: 10px; border: 1px solid var(--line); background: var(--paper-2); color: var(--ink); text-decoration: none; }
+.ref-card:hover { border-color: var(--red); }
+.ref-card b { font-family: var(--serif); font-size: 15px; }
+.ref-card span { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+.ref-card small { font-family: var(--mono); font-size: 11px; color: var(--red); }

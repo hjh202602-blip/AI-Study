@@ -131,7 +131,7 @@
     return {
       id, path, file, dir: path.split('/').slice(0, -1).join('/'),
       label: o.label || clean, en: o.en || '', summary: o.summary || '',
-      mark: (o.mark === 'treasure' ? 'clue' : o.mark) || (parent ? 'camp' : 'flag'), widgets: o.widgets || [],
+      mark: (o.mark === 'treasure' ? 'clue' : o.mark) || (parent ? 'camp' : 'flag'), widgets: o.widgets || [], refs: Array.isArray(o.refs) ? o.refs : [],
       region, parent, sides: [], side: !!parent, md: '', draft: false,
     };
   }
@@ -1446,6 +1446,16 @@
     } else {
       n.widgets.forEach((w) => { const h = document.createElement('div'); body.appendChild(h); mountWidget(h, w, n); });
       body.appendChild(renderMd(n.md, n));
+    }
+    // 참고자료 (config 의 refs) — http(s) 주소만 링크로 만든다
+    const refs = (n.refs || []).filter((r) => r && /^https?:\/\//i.test(r.url || ''));
+    if (refs.length) {
+      const box = document.createElement('section');
+      box.className = 'refs';
+      box.innerHTML = '<div class="h-label">📚 참고자료</div>' + refs.map((r) =>
+        `<a class="ref-card" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer"><b>${esc(r.title || r.url)}</b>` +
+        (r.desc ? `<span>${esc(r.desc)}</span>` : '') + `<small>${esc(r.url.replace(/^https?:\/\//, '').replace(/\/$/, ''))} ↗</small></a>`).join('');
+      body.appendChild(box);
     }
     const src = document.createElement('p');
     src.innerHTML = `<a class="source-link" href="${githubUrl(n.path)}" target="_blank" rel="noopener">깃허브에서 원본 보기 ↗ ${esc(n.path)}</a>`;

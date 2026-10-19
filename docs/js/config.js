@@ -43,6 +43,7 @@ window.AIMAP_CONFIG = {
       //   en      : 영어 부제
       //   summary : 한 줄 요약 (패널 맨 위)
       //   widgets : 패널 맨 위에 붙일 시각화 (js/widgets.js 에 등록된 이름)
+      //   refs    : 참고자료 링크 [{ title, url, desc }] — 패널 아래쪽에 카드로 나온다
       // .md 본문 안에 <!-- widget: 이름 --> 을 적으면 그 자리에 시각화가 들어간다.
       nodes: {
         '00-01python': {
@@ -74,11 +75,17 @@ window.AIMAP_CONFIG = {
           mark: 'clue', label: 'XOR 문제', en: 'LIMIT OF SLP',
           summary: '단층 퍼셉트론은 직선 하나. XOR은 직선 하나로 못 나눈다.',
           widgets: ['boundary'],
+          refs: [
+            { title: 'TensorFlow Playground', url: 'https://playground.tensorflow.org/', desc: '데이터를 XOR(체크무늬)로 고르고 은닉층을 0개로 두면, 직선 하나로는 나뉘지 않는 걸 직접 볼 수 있어요.' },
+          ],
         },
         '01-05MLP': {
           mark: 'clue', label: '다층 퍼셉트론', en: 'MLP',
           summary: '직선 하나로 안 되면 둘을 쓰자. NAND + OR → AND = XOR.',
           widgets: ['xorNet'],
+          refs: [
+            { title: 'TensorFlow Playground', url: 'https://playground.tensorflow.org/', desc: '은닉층과 뉴런을 늘려 가며 XOR 같은 데이터가 어떻게 나뉘는지 브라우저에서 직접 학습시켜 보는 도구예요.' },
+          ],
         },
         '02-00ANN': {
           label: 'ANN', en: 'ARTIFICIAL NEURAL NET',
