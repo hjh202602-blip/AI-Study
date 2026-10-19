@@ -383,7 +383,7 @@
     const def = SHAPES[r.shape] || SHAPES.ellipse;
     const slots = r.nodes.flatMap((n) => [n, ...n.sides]);
     const n = slots.length;
-    const A = Math.max(r.shape === 'ellipse' ? 280 : 320, (195 * Math.max(1, n - 1)) / polyLen(def.path));
+    const A = Math.max(560, (300 * Math.max(1, n - 1)) / polyLen(def.path));
     const land = makeLand(r.shape, A, 700 + i * 97);
     r.land = land;
     r._local = slots.map((nd, k) => { const [ux, uy] = alongPath(def.path, n === 1 ? 0.5 : k / (n - 1)); return { nd, x: ux * A, y: uy * A - 10 }; });
@@ -391,11 +391,11 @@
     r._ext = landExtent(land);
   }
   function prepDraft(r) {
-    const R0 = 150;
+    const R0 = 260;
     Object.assign(r, { land: null, rx: R0, ry: R0 * 0.78, _ext: { x0: -R0, x1: R0, y0: -R0 * 0.78, y1: R0 * 0.78 } });
   }
   function prepFinal() {
-    const land = makeLand('ellipse', 200, 4242);
+    const land = makeLand('ellipse', 360, 4242);
     return { key: 'final', final: true, shape: 'ellipse', land, nodes: [], _ext: landExtent(land), _xl: { x: 0, y: 0 } };
   }
   // 정해진 중심으로 옮긴다
@@ -414,7 +414,7 @@
     state.portrait = isPortrait();
     const R = state.regions;
     state.final = null; state.demo = null;
-    R.forEach((r, i) => { r.shape = r.shape || SHAPE_CYCLE[i % SHAPE_CYCLE.length]; });
+    R.forEach((r) => { r.shape = 'ellipse'; }); // 섬은 모두 둥글게
     if (!R.length) { // 아직 섬이 없는 빈 지도
       const pw = state.portrait ? 1100 : 2400, ph = state.portrait ? 1700 : 1600;
       state.paper = { x: 0, y: 0, w: pw, h: ph };
@@ -430,27 +430,38 @@
     R.forEach((r, i) => (r.draft ? prepDraft(r) : prepIsland(r, i)));
     const items = [...R];
     if (hasQuiz()) { state.final = prepFinal(); items.push(state.final); }
-    // 무작위 배치: 순서를 섞어서 하나씩, 이미 놓인 섬 옆의 빈 바다에 둔다 (지도마다 늘 같은 배치)
-    const rnd = rng(hashStr((state.map && state.map.id) || 'map') + (state.portrait ? 99 : 0));
-    const order = items.map((_, i) => i);
-    for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
-    const placed = [], GAP = 170;
-    const half = (o) => ({ hx: (o._ext.x1 - o._ext.x0) / 2, hy: (o._ext.y1 - o._ext.y0) / 2 + 30 });
-    const hits = (o, cx, cy) => placed.some((q) => {
-      const a = half(o), b = half(q);
-      return Math.abs(cx - q.cx) < a.hx + b.hx + GAP && Math.abs(cy - q.cy) < a.hy + b.hy + GAP;
+    // 배치: 섬을 방문 순서대로 '한붓그리기' 모양(ㄹ·Z·ㄷ·ㄱ·ㄴ) 칸에 놓고, 칸 안에서만 조금씩 흔든다.
+    // 길이 서로 겹치지 않아서 따라가기 쉽고, 모양은 지도마다 다르다 (지도마다 늘 같은 배치).
+    const rnd = rng(hashStr((state.map && state.map.id) || 'map'));
+    const n = items.length;
+    const k = Math.max(2, Math.ceil(Math.sqrt(n * 1.6))), h = Math.ceil(n / 2);
+    const PATTERNS = {
+      'ㄹ': (i) => { const row = Math.floor(i / k), c = i % k; return [row % 2 ? k - 1 - c : c, row]; },
+      Z: (i) => [i % k, Math.floor(i / k)],
+      'ㄷ': (i) => (i < h ? [i, 0] : [h - 1 - (i - h), 1]),
+      'ㄱ': (i) => (i < h ? [i, 0] : [h - 1, i - h + 1]),
+      'ㄴ': (i) => (i < h ? [0, i] : [i - h + 1, h - 1]),
+    };
+    const names = Object.keys(PATTERNS);
+    const pick = (state.map && state.map.path) || names[Math.floor(rnd() * names.length)];
+    const cells = items.map((_, i) => {
+      const [c, r] = (PATTERNS[pick] || PATTERNS['ㄹ'])(i);
+      return state.portrait ? [r, c] : [c, r]; // 세로 화면은 위→아래로 흐르게
     });
-    order.forEach((idx) => {
-      const o = items[idx];
-      if (!placed.length) { settle(o, 0, 0); placed.push(o); return; }
-      for (let t = 0; t < 600; t++) {
-        const base = placed[Math.floor(rnd() * placed.length)];
-        const a = rnd() * Math.PI * 2, A = half(o), B = half(base);
-        const ex = state.portrait ? 0.55 : 1.35, ey = state.portrait ? 1.4 : 0.8;
-        const dist = Math.hypot(A.hx + B.hx, A.hy + B.hy) * (0.62 + rnd() * 0.45) + GAP;
-        const cx = base.cx + Math.cos(a) * dist * ex, cy = base.cy + Math.sin(a) * dist * ey;
-        if (!hits(o, cx, cy) || t === 599) { settle(o, cx, cy); placed.push(o); return; }
-      }
+    state.pathShape = pick;
+    const size = (o) => ({ w: o._ext.x1 - o._ext.x0, h: o._ext.y1 - o._ext.y0 + 70 });
+    const nc = Math.max(...cells.map((q) => q[0])) + 1, nr = Math.max(...cells.map((q) => q[1])) + 1;
+    const colW = Array(nc).fill(0), rowH = Array(nr).fill(0);
+    items.forEach((o, i) => { const z = size(o); colW[cells[i][0]] = Math.max(colW[cells[i][0]], z.w); rowH[cells[i][1]] = Math.max(rowH[cells[i][1]], z.h); });
+    const GAP = 200;
+    const colX = [], rowY = [];
+    colW.reduce((x, w, c) => { colX[c] = x; return x + w + GAP + rnd() * 120; }, 0);
+    rowH.reduce((y, hh, r) => { rowY[r] = y; return y + hh + GAP + rnd() * 100; }, 0);
+    items.forEach((o, i) => {
+      const [c, r] = cells[i], z = size(o);
+      const sx = colW[c] - z.w, sy = rowH[r] - z.h; // 칸 안의 남는 자리만큼 흔든다
+      const jx = (rnd() - 0.5) * (sx + 90), jy = (rnd() - 0.5) * (sy + 70);
+      settle(o, colX[c] + colW[c] / 2 + jx, rowY[r] + rowH[r] / 2 + jy - 35);
     });
     // 양피지 사각형: 섬들을 감싸고 넉넉한 바다를 둔다
     const x0 = Math.min(...items.map((r) => r.cx - r.rx)), x1 = Math.max(...items.map((r) => r.cx + r.rx));
@@ -740,7 +751,8 @@
     const ly = r.labelY ?? r.cy + r.ry - 40;
     const free = (x, y, d) => !markNear(r, x, y, d) && !(Math.abs(y - ly) < 34 && Math.abs(x - r.cx) < 140);
     let placed = 0;
-    for (let t = 0; t < 160 && placed < 6; t++) {
+    const many = Math.max(1, Math.round((r.rx || 300) / 260));
+    for (let t = 0; t < 160 * many && placed < 6 * many; t++) {
       const { x, y } = landPoint(R, r, 2.0);
       if (!free(x, y, 90)) continue;
       const s = 12 + R() * 9;
@@ -749,7 +761,7 @@
       placed++;
     }
     placed = 0;
-    for (let t = 0; t < 200 && placed < 9; t++) {
+    for (let t = 0; t < 200 * many && placed < 9 * many; t++) {
       const { x, y } = landPoint(R, r, 1.6);
       if (!free(x, y, 70)) continue;
       for (let k = 0; k < 3; k++) {
@@ -957,7 +969,8 @@
     const R = rng(seed + 41), e = r._ext;
     const ly = r.labelY ?? r.cy + r.ry + 30;
     let placed = 0;
-    for (let t = 0; t < 400 && placed < 7; t++) {
+    const many = Math.max(1, Math.round((r.rx || 300) / 260));
+    for (let t = 0; t < 400 * many && placed < 7 * many; t++) {
       const x = e.x0 + r.ox + R() * (e.x1 - e.x0), y = e.y0 + r.oy + R() * (e.y1 - e.y0);
       if (!onLand(r, x, y, 1.05) || onLand(r, x, y, 1.6)) continue; // 해안가 띠
       if (markNear(r, x, y - 12, 70) || (Math.abs(y - ly) < 40 && Math.abs(x - r.cx) < 140)) continue;

@@ -27,10 +27,9 @@ window.AIMAP_CONFIG = {
       // repo: { owner, name, branch } 다른 저장소의 목차를 쓸 때만
 
       // 섬(챕터) 꾸미기. 키는 README "### 00." 의 번호
-      //   shape: 섬 모양 — 'ellipse'(타원) | 'T' | 'ㅗ' | 'U' | 'L' | 'C'  (없으면 순서대로 돌아가며 쓴다)
       regions: {
-        '00': { name: '파이썬', en: 'PYTHON', desc: '신경망 계산을 위한 도구 상자', shape: 'L' },
-        '01': { name: '퍼셉트론', en: 'PERCEPTRON', desc: '신호를 받아 0 또는 1을 내보내는 가장 작은 뉴런', shape: 'U' },
+        '00': { name: '파이썬', en: 'PYTHON', desc: '신경망 계산을 위한 도구 상자' },
+        '01': { name: '퍼셉트론', en: 'PERCEPTRON', desc: '신호를 받아 0 또는 1을 내보내는 가장 작은 뉴런' },
         '02': { name: '신경망', en: 'NEURAL NET', desc: '퍼셉트론을 이어 붙여 만든 인공 신경망' },
       },
 
@@ -205,10 +204,11 @@ window.AIMAP_CONFIG = {
     // 다음 개념 묶음 자리 — 목차 파일을 만들면 이렇게 바꾸면 된다:
     //   { id: 'cnn', source: 'cnn/README.md', subtitle: '...' },
     // 테스트용 빈 지도 — 실제 지도를 추가하면 지우면 된다
-    { id: 'empty1', placeholder: true, title: '빈 지도 1', demoShape: 'T' },
-    { id: 'empty2', placeholder: true, title: '빈 지도 2', demoShape: 'ㅗ' },
-    { id: 'empty3', placeholder: true, title: '빈 지도 3', demoShape: 'U' },
-    { id: 'empty4', placeholder: true, title: '빈 지도 4', demoShape: 'L' },
-    { id: 'empty5', placeholder: true, title: '빈 지도 5', demoShape: 'C' },
+    //   path: 섬을 잇는 순서 모양 'ㄹ' | 'Z' | 'ㄷ' | 'ㄱ' | 'ㄴ' 을 직접 고를 수도 있다 (없으면 지도마다 무작위)
+    { id: 'empty1', placeholder: true, title: '빈 지도 1' },
+    { id: 'empty2', placeholder: true, title: '빈 지도 2' },
+    { id: 'empty3', placeholder: true, title: '빈 지도 3' },
+    { id: 'empty4', placeholder: true, title: '빈 지도 4' },
+    { id: 'empty5', placeholder: true, title: '빈 지도 5' },
   ],
 };
